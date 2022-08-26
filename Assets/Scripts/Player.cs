@@ -2,12 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(TankController))]
 public class Player : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] int _maxHealth = 3;
+    int _currentHealth;
+
+    TankController _tankController;
+
+    private void Awake()
     {
-        
+        _tankController = GetComponent<TankController>();
+    }
+
+    private void Start()
+    {
+        _currentHealth = _maxHealth;
     }
 
     // Update is called once per frame
@@ -15,4 +25,23 @@ public class Player : MonoBehaviour
     {
         
     }
+
+    public void IncreaseHealth(int amount)
+    {
+        _currentHealth = Mathf.Clamp(_currentHealth, 0, _maxHealth);
+        Debug.Log("Player's Health: " + _currentHealth);
+
+    }
+
+    public void DecreaseHealth(int amount)
+    {
+        _currentHealth -= amount;
+        Debug.Log("Player's Health: " + _currentHealth);
+        if (_currentHealth <= 0)
+        {
+            Kill();
+        }
+    }
+        
+    
 }

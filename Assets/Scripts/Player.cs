@@ -42,6 +42,12 @@ public class Player : MonoBehaviour
             Kill();
         }
     }
-        
+
+    public void Kill() 
+    {
+        gameObject.SetActive(false);
+        //play particles
+        //play sounds
+    }
     
 }

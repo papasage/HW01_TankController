@@ -1,14 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(TankController))]
 public class Player : MonoBehaviour
 {
     [SerializeField] int _maxHealth = 3;
     int _currentHealth;
+    int _currentTreasure;
 
     TankController _tankController;
+    [SerializeField] Text _uiTresureText;
+    [SerializeField] Text _uiHealthText;
 
     private void Awake()
     {
@@ -18,14 +22,23 @@ public class Player : MonoBehaviour
     private void Start()
     {
         _currentHealth = _maxHealth;
+        _currentTreasure = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        _uiTresureText.text = "Treasures: " + _currentTreasure;
+        _uiHealthText.text = "Health: " + _currentHealth;
     }
 
+    public void IncreaseTreasure(int amount)
+    {
+        _currentTreasure += amount;
+        Debug.Log("Treasure: " + _currentTreasure);
+
+    }
+    
     public void IncreaseHealth(int amount)
     {
         _currentHealth += amount;

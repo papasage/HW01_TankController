@@ -7,26 +7,34 @@ public abstract class PowerUpBase : MonoBehaviour
 	protected abstract void PowerUp(Player player);
 	protected abstract void PowerDown(Player player);
 
-	protected bool powerupActive = false;
 	protected Player player = null;
+	protected bool powerupActive = false;
+	Rigidbody _rb;
+
+	// Characteristics
 	[SerializeField] float powerupDuration = 5;
 	[SerializeField] float _movementSpeed = 1;
+	[SerializeField] MeshRenderer _powerupVisuals;
+	[SerializeField] Collider _powerupCollider;
 
-
+	// FEEDBACK
 	[SerializeField] ParticleSystem _collectParticles;
 	[SerializeField] AudioClip _collectSound;
 
 	// MAKE BACKING FIELDS FOR THESE 4
+	//PLAYER VISUAL EFFECT
 	[SerializeField] protected Material normalPlayerMat = null;
 	[SerializeField] protected Material invisPlayerMat = null;
 	[SerializeField] protected MeshRenderer _bodyRenderer;
 	[SerializeField] protected MeshRenderer _turretRenderer;
 
-	Rigidbody _rb;
+
 
 	private void Awake()
 	{
 		_rb = GetComponent<Rigidbody>();
+		_powerupCollider = GetComponent<Collider>();
+		_powerupVisuals = GetComponent<MeshRenderer>();
 	}
 
 	private void FixedUpdate()
@@ -53,6 +61,8 @@ public abstract class PowerUpBase : MonoBehaviour
 	{
 		Debug.Log("IEnumerator started");
 		powerupActive = true;
+		_powerupCollider.enabled = !_powerupCollider.enabled;
+		_powerupVisuals.enabled = !_powerupVisuals.enabled;
 		yield return new WaitForSeconds(powerupDuration);
 		powerupActive = false;
 		PowerDown(player);

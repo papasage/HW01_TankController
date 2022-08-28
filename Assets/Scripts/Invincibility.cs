@@ -21,12 +21,10 @@ public class Invincibility : PowerUpBase
 			_bodyRenderer.material = normalPlayerMat;
 			_turretRenderer.material = normalPlayerMat;
 			Debug.Log("INVIS Power DOWN");
+
+		Destroy(gameObject);
 	}
 
-	private void Update()
-	{
-	}
 
-	//my update function isn't able to call the increaseHealth method, and I am not sure why.
-	//If I can get the player to heal every frame while blue and disable powerup visuals I will be done.
+	//If I can disable powerup visuals I will be done.
 }

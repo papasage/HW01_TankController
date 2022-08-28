@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     int _storeMaxHealth;
     int _currentHealth;
     int _currentTreasure;
+    bool godMode = false;
 
     TankController _tankController;
     [SerializeField] Text _uiTresureText;
@@ -33,9 +34,17 @@ public class Player : MonoBehaviour
 		{
             Application.Quit();
         }
-            
+
         _uiTresureText.text = "Treasures: " + _currentTreasure;
-        _uiHealthText.text = "Health: " + _currentHealth;
+
+        if (godMode == true)
+        {
+            _uiHealthText.text = "Health: GOD MODE";
+        }
+        else _uiHealthText.text = "Health: " + _currentHealth;
+
+        
+        
     }
 
     public void IncreaseTreasure(int amount)
@@ -74,11 +83,13 @@ public class Player : MonoBehaviour
     {
         _storeMaxHealth = _maxHealth;
         _maxHealth = 9999;
+        godMode = true;
         _currentHealth = _maxHealth;
     }
 
     public void DeactivateInvis()
     {
+        godMode = false;
         _maxHealth = _storeMaxHealth;
         _currentHealth = _maxHealth;
     }

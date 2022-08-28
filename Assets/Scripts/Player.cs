@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     [SerializeField] int _maxHealth = 3;
+    int _storeMaxHealth;
     int _currentHealth;
     int _currentTreasure;
 
@@ -63,5 +64,18 @@ public class Player : MonoBehaviour
         //play particles
         //play sounds
     }
-    
+
+    public void ActivateInvis()
+    {
+        _storeMaxHealth = _maxHealth;
+        _maxHealth = 9999;
+        _currentHealth = _maxHealth;
+    }
+
+    public void DeactivateInvis()
+    {
+        _maxHealth = _storeMaxHealth;
+        _currentHealth = _maxHealth;
+    }
+
 }
